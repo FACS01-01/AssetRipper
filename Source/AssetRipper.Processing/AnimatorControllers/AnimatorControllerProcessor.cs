@@ -76,8 +76,11 @@ public sealed class AnimatorControllerProcessor : IAssetProcessor
 
 			foreach (IUnityObjectBase asset in controller.FetchEditorHierarchy().WhereNotNull())
 			{
-				Debug.Assert(asset.MainAsset is null);
-				asset.MainAsset = controller;
+				if (asset.MainAsset != controller)
+				{
+					Debug.Assert(asset.MainAsset is null);
+					asset.MainAsset = controller;
+				}
 			}
 		}
 	}
